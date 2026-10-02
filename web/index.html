@@ -1,0 +1,613 @@
+<!doctype html><html lang="zh-HK"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>童軍公開文件資料庫 · 非官方 · AI-first</title>
+<style>
+:root{--bg:#0e1116;--card:#161b22;--card2:#1b222b;--line:#262e38;--fg:#e6e9ee;
+--mut:#8d99a8;--acc:#5aa9e6;--ok:#5fbf8b;--warn:#e0a33e;--bad:#e2604f;--lil:#b48ead}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+font:15px/1.65 -apple-system,"PingFang HK","Microsoft JhengHei",system-ui,sans-serif}
+a{color:var(--acc);text-decoration:none}a:hover{text-decoration:underline}
+header{padding:22px 20px 16px;border-bottom:1px solid var(--line);
+background:linear-gradient(180deg,#141a22,#0e1116)}
+h1{margin:0 0 6px;font-size:20px}
+.sub{color:var(--mut);font-size:13px;max-width:820px}
+.badge{display:inline-block;padding:2px 9px;border-radius:99px;font-size:11.5px;
+border:1px solid var(--line);color:var(--mut);margin-left:6px;vertical-align:2px}
+.badge.ai{border-color:#2f5d7a;color:#9fd0f0;background:#132531}
+main{max-width:1080px;margin:0 auto;padding:18px 16px 80px}
+.tabs{display:flex;gap:6px;margin:16px 0 14px;flex-wrap:wrap}
+.tab{padding:9px 15px;border-radius:9px;background:var(--card);border:1px solid var(--line);
+cursor:pointer;color:var(--mut);font-size:14px}
+.tab.on{color:#fff;border-color:var(--acc);background:#1b2836}
+.panel{display:none}.panel.on{display:block}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+input[type=text],input[type=password],select{padding:11px 13px;border-radius:9px;
+background:#0b0e12;border:1px solid var(--line);color:var(--fg);font-size:14.5px}
+input[type=text]{flex:1;min-width:230px}
+button.go{padding:11px 19px;border-radius:9px;border:1px solid #2c4a68;
+background:#1d3b56;color:#dceaff;cursor:pointer;font-size:14.5px;font-weight:600}
+button.go:hover{background:#25496a}
+button.gh{padding:9px 14px;border-radius:9px;border:1px solid var(--line);
+background:var(--card);color:var(--mut);cursor:pointer;font-size:13.5px}
+button.gh:hover{color:var(--fg);border-color:#3a4653}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+padding:15px 17px;margin-top:12px}
+.card.tight{padding:12px 14px}
+.meta{color:var(--mut);font-size:12.5px;margin:6px 0;display:flex;gap:12px;flex-wrap:wrap}
+.pill{padding:2px 8px;border-radius:6px;font-size:11.5px;font-weight:600;
+border:1px solid var(--line);color:var(--mut)}
+.pill.ok{background:#15301f;color:#8fdcae;border-color:#235c39}
+.pill.warn{background:#33280f;color:#f0cf8a;border-color:#6b5320}
+.pill.bad{background:#331a17;color:#f0a497;border-color:#6b2f27}
+pre{white-space:pre-wrap;word-break:break-word;background:#0b0e12;
+border:1px solid var(--line);border-left:3px solid var(--acc);border-radius:8px;
+padding:12px 14px;margin:8px 0;font-family:"PingFang HK","Microsoft JhengHei",
+ui-monospace,monospace;font-size:13.5px;line-height:1.75;max-height:520px;overflow:auto}
+pre.sm{font-size:12px;max-height:330px;border-left-color:var(--lil)}
+code{background:#0b0e12;border:1px solid var(--line);border-radius:5px;
+padding:1px 6px;font-size:12.5px}
+table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13.5px}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#141a22;color:var(--mut);font-weight:600}
+.hint{color:var(--mut);font-size:12.5px;margin-top:8px;line-height:1.7}
+.disc{margin-top:20px;padding:13px 15px;border-radius:10px;background:#141a22;
+border:1px solid var(--line);color:var(--mut);font-size:12.5px;line-height:1.75}
+.chips{margin:10px 0 2px;display:flex;gap:6px;flex-wrap:wrap}
+.chip{padding:5px 11px;border-radius:99px;background:#141a22;border:1px solid var(--line);
+color:var(--mut);font-size:12.5px;cursor:pointer}
+.chip:hover{color:var(--fg);border-color:#3a4653}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:840px){.grid{grid-template-columns:1fr}}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:12.5px}
+.kv span:nth-child(odd){color:var(--mut)}
+.seg{display:flex;gap:0;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.seg button{padding:8px 13px;background:var(--card);border:0;color:var(--mut);
+cursor:pointer;font-size:13px;border-right:1px solid var(--line)}
+.seg button:last-child{border-right:0}
+.seg button.on{background:#1d3b56;color:#dceaff}
+.lbl{font-size:12px;color:var(--mut);margin:12px 0 4px;display:block}
+.warnbox{background:#20180c;border:1px solid #5c4419;border-radius:9px;
+padding:11px 13px;font-size:12.5px;color:#f0cf8a;margin-top:10px;line-height:1.7}
+.okbox{background:#0f2318;border:1px solid #235c39;border-radius:9px;
+padding:11px 13px;font-size:12.5px;color:#8fdcae;margin-top:10px;line-height:1.7}
+.stat{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
+.stat div{flex:1;min-width:120px;background:#141a22;border:1px solid var(--line);
+border-radius:10px;padding:10px 12px}
+.stat b{display:block;font-size:19px;color:#fff}
+.stat span{color:var(--mut);font-size:11.5px}
+.hit{border-bottom:1px solid var(--line);padding:11px 0}
+.hit:last-child{border-bottom:0}
+.hit .h{font-size:14px;color:#fff;margin-bottom:3px}
+.hit .s{font-size:13px;color:#c3ccd6;line-height:1.7}
+mark{background:#3a3312;color:#ffe08a;padding:0 2px;border-radius:3px}
+</style></head><body>
+<header>
+ <h1>童軍公開文件資料庫<span class="badge ai">AI-first</span><span class="badge">非官方</span></h1>
+ <div class="sub">呢個站嘅<b>主要對象係 AI</b>：當有人問 AI 童軍規則，AI 可以喺呢度攞到
+ 逐字原文同完整出處，而唔係靠 web search 撞啱一份可能已過時嘅 PDF。
+ 本站<b>唔做判斷、唔拒答</b> — 只負責俾齊、俾準、俾出處。</div>
+</header>
+<main>
+<div class="tabs">
+ <div class="tab on" data-p="p1">① 接入你自己嘅 AI</div>
+ <div class="tab" data-p="p2">② 關鍵字搜尋</div>
+ <div class="tab" data-p="p3">③ AI 點樣接入</div>
+ <div class="tab" data-p="p4">④ 版本核對</div>
+</div>
+
+<!-- ============ ① 接入你自己嘅 AI ============ -->
+<section class="panel on" id="p1">
+ <div class="card">
+  <div class="grid">
+   <div>
+    <label class="lbl">Provider</label>
+    <select id="prov" style="width:100%"></select>
+    <label class="lbl">Model</label>
+    <select id="model" style="width:100%"></select>
+    <div id="customWrap" style="display:none">
+     <label class="lbl">Base URL（例 http://localhost:11434/v1）</label>
+     <input type="text" id="baseurl" style="width:100%" placeholder="http://localhost:11434/v1">
+    </div>
+   </div>
+   <div>
+    <label class="lbl">API key <span class="pill" id="keyState">未設定</span></label>
+    <input type="password" id="apikey" style="width:100%" placeholder="sk-… / 只儲存喺你瀏覽器">
+    <label class="lbl">模式</label>
+    <div class="seg" id="modeSeg">
+     <button data-m="direct" class="on">direct（瀏覽器直連）</button>
+     <button data-m="copy">copy（自己貼）</button>
+    </div>
+    <div class="hint" id="modeHint"></div>
+   </div>
+  </div>
+  <div class="warnbox" id="keyWarn" style="display:none"></div>
+ </div>
+
+ <div class="row" style="margin-top:12px">
+  <input id="q" type="text" value="樂行童軍幾多歲要退？" placeholder="問任何童軍規則問題">
+  <button class="go" onclick="ask()">查詢</button>
+ </div>
+ <div class="chips" id="chips"></div>
+
+ <div id="out"></div>
+</section>
+
+<!-- ============ ② 關鍵字搜尋 ============ -->
+<section class="panel" id="p2">
+ <div class="row">
+  <input id="kq" type="text" value="年齡規限" placeholder="關鍵字，例：年齡規限 / 銀行戶口 / 旅務委員會">
+  <select id="kprefix"><option value="">全部章節</option></select>
+  <button class="go" onclick="kw()">搜尋</button>
+ </div>
+ <div class="chips" id="kchips"></div>
+ <div class="card"><div class="meta" id="kmeta"></div><div id="kout"></div></div>
+</section>
+
+<!-- ============ ③ AI 點樣接入 ============ -->
+<section class="panel" id="p3">
+ <div class="card">
+  <b>AI 點樣入嚟 — 直接讀 GitHub repo（冇 API、冇 server）</b>
+  <table>
+   <tr><th>方式</th><th>路徑</th><th>適用</th></tr>
+   <tr><td>概覽</td><td><code>llms.txt</code></td>
+       <td>⭐ 起點。列明結構 + 已知過時來源</td></tr>
+   <tr><td>規條索引</td><td><code>index.json</code></td>
+       <td>machine-readable，所有 rule id + title + URL + 出處</td></tr>
+   <tr><td>單條規條</td><td><code>por/&lt;rule_id&gt;.md</code></td>
+       <td>每條規條一個<b>穩定 URL</b>，純 MD + frontmatter 出處</td></tr>
+   <tr><td>成份文件</td><td><code>md/POR.md</code></td><td>一份完整 MD</td></tr>
+   <tr><td>全 corpus</td><td><code>llms-full.txt</code></td>
+       <td>單一檔案，長 context 模型一次過讀完</td></tr>
+  </table>
+  <div class="hint">全部檔案都喺 GitHub repo，可以經 <code>raw.githubusercontent.com</code> 直接 fetch —
+  <b>冇 auth、冇 rate limit、冇 server</b>。Vercel app 只係人用嘅前端，
+  而且佢自己都係讀同一批靜態檔案（client-side 檢索）。</div>
+  <div class="warnbox" style="margin-top:10px">
+   <b>本頁所有檢索都係喺你瀏覽器入面行嘅</b>（BM25 + 查詢理解 + signals，
+   由 <code>app.js</code> 載入 <code>api/index.json</code>）。冇任何 request 去到 server。
+   你嘅 API key 只儲存喺 localStorage，直連 provider。</div>
+ </div>
+ <div class="grid">
+  <div class="card"><b>試：client-side retrieve</b>
+   <div class="row" style="margin-top:8px">
+    <input id="rq" type="text" value="幼童軍團最少要幾多名團員" style="min-width:150px">
+    <button class="gh" onclick="tryRet()">Call</button>
+   </div>
+   <pre class="sm" id="rout">撳 Call</pre>
+  </div>
+  <div class="card"><b>試：por/&lt;rule&gt;.md</b>
+   <div class="row" style="margin-top:8px">
+    <input id="rr" type="text" value="2.3.7" style="min-width:90px;flex:0 0 110px">
+    <button class="gh" onclick="tryRule()">Call</button>
+   </div>
+   <pre class="sm" id="rrout">撳 Call</pre>
+  </div>
+ </div>
+ <div class="card"><b>設計原則：點解唔拒答、唔分級</b>
+  <div class="hint">
+   如果消費者係人，提前過濾候选係合理嘅（避免佢睇錯）。<br>
+   但消費者係 <b>AI</b> 嘅時候，提前過濾 = <b>剝削佢嘅判斷能力</b>。<br><br>
+   所以 <code>/api/retrieve</code> 返回<b>齊全</b>候选（包括低分嘅），
+   加上<b>中立、機器可讀</b>嘅 signals：<br>
+   · <code>lexical_coverage</code> — 查詢詞有幾多出現喺 corpus（低 = 可能領域外，亦可能只係同義改述）<br>
+   · <code>answerability</code> — 查詢意圖詞有冇喺候选原文出現<br>
+   · <code>ambiguity</code> — top 候选之間分數有幾接近<br>
+   · <code>section_conflict</code> — 候选涉及多個互斥實體（例：五個支部各有唔同年齡）<br>
+   · <code>version_warning</code> — 候選規條有冇後續通告修訂<br>
+   · <code>known_stale_sources</code> — 已知過時檔案嘅 URL / sha256 + 已核實差異<br><br>
+   <b>AI 自己決定</b>信唔信、用邊條、要唔要反問。
+  </div>
+ </div>
+</section>
+
+<!-- ============ ④ 版本核對 ============ -->
+<section class="panel" id="p4">
+ <div class="row">
+  <input id="vq" type="text" value="por_c_20220908_1.pdf" placeholder="PDF URL、檔名或 sha256">
+  <button class="go" onclick="ver()">核對</button>
+ </div>
+ <div class="chips">
+  <span class="chip" onclick="setV('por_c_20220908_1.pdf')">por_c_20220908_1.pdf（舊）</span>
+  <span class="chip" onclick="setV('por_c_20260917.pdf')">por_c_20260917.pdf（現行）</span>
+  <span class="chip" onclick="setV('3787fac7b4778ff5c5ed652a52b44bd71e996aa9f85d834f0c7f982c531895f2')">sha256（舊版）</span>
+ </div>
+ <div id="vout"></div>
+ <div class="card"><div class="hint">
+  <b>點解需要呢個功能：</b>總會舊版 PDF 冇下架，URL 仍然 live，搜尋引擎仍然索引緊，
+  而且排名高過現行版。實測發現新舊兩版之間有 <b>5 項實質差異</b>（全部係各支部年齡規限）。<br><br>
+  本站<b>唔判斷</b>總會邊份文件「錯」— 只陳列事實：官方目錄頁而家列緊邊份。
+ </div></div>
+</section>
+
+<div class="disc" id="disc"></div>
+</main>
+<script src="app.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let PROVIDERS={},MODE='direct';
+
+/* ---------------- tabs ---------------- */
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+ document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+ document.querySelectorAll('.panel').forEach(x=>x.classList.remove('on'));
+ t.classList.add('on');$(t.dataset.p).classList.add('on');});
+document.querySelectorAll('#modeSeg button').forEach(b=>b.onclick=()=>{
+ document.querySelectorAll('#modeSeg button').forEach(x=>x.classList.remove('on'));
+ b.classList.add('on');MODE=b.dataset.m;updateModeHint();});
+
+const CHIPS=["樂行童軍幾多歲要退？","各支部年齡規限","一個童軍團最少要幾多名團員？",
+"旅務委員會","童軍旅財務","銀行戶口要幾多人簽","區總監可唔可以解散一個團？",
+"幼童軍團最多幾個小隊","總會嘅銘言","童軍旅團長月薪幾多"];
+$('chips').innerHTML=CHIPS.map(c=>`<span class="chip" onclick="setQ('${c}')">${esc(c)}</span>`).join('');
+const KCHIPS=["年齡規限","最低應有標準","銀行戶口","旅務委員會","領袖委任書","進度性獎章","糾紛","保險"];
+$('kchips').innerHTML=KCHIPS.map(c=>`<span class="chip" onclick="setK('${c}')">${esc(c)}</span>`).join('');
+const setQ=v=>{$('q').value=v;ask()};
+const setK=v=>{$('kq').value=v;kw()};
+const setV=v=>{$('vq').value=v;ver()};
+
+/* ---------------- providers ---------------- */
+const PROVIDERS_LOCAL={
+ openai:{label:"OpenAI (ChatGPT)",endpoint:"https://api.openai.com/v1/chat/completions",
+  models:["gpt-4o-mini","gpt-4o","gpt-4.1-mini","o4-mini"],auth:"bearer",
+  cors_note:"視乎 OpenAI 當時政策。"},
+ anthropic:{label:"Anthropic (Claude)",endpoint:"https://api.anthropic.com/v1/messages",
+  models:["claude-sonnet-4-5","claude-haiku-4-5","claude-opus-4-1"],auth:"x-api-key",
+  cors_note:"瀏覽器直連需要 anthropic-dangerous-direct-browser-access: true（已自動加）。"},
+ gemini:{label:"Google Gemini",endpoint:"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+  models:["gemini-2.5-flash","gemini-2.5-pro"],auth:"query",
+  cors_note:"Gemini API 一般容許瀏覽器直連。"},
+ openrouter:{label:"OpenRouter（一個 key 用多間模型）",endpoint:"https://openrouter.ai/api/v1/chat/completions",
+  models:["anthropic/claude-sonnet-4.5","openai/gpt-4o-mini","google/gemini-2.5-flash","deepseek/deepseek-chat"],
+  auth:"bearer",cors_note:"OpenRouter 支援瀏覽器直連。"},
+ custom:{label:"自訂 OpenAI-compatible（Ollama / vLLM / LM Studio）",endpoint:"{base}/chat/completions",
+  models:[],auth:"bearer",cors_note:"本地模型通常要自己設定 CORS。"}};
+
+const SYSTEM_PROMPT=`你正在查詢一個非官方嘅香港童軍總會公開文件資料庫。
+
+關於呢個資料源嘅事實：
+· 所有 verbatim 欄位係逐字引用自總會公開 PDF，未經改寫。
+· 每個 passage 附有 source 欄位：文件名稱、版本、檔案日期、sha256、官方原文 URL。
+· signals 欄位係中立嘅機器可讀訊號，供你自行判斷資料是否足以回答。本資料庫唔會替你決定答唔答。
+· known_stale_sources 列出已知嘅過時檔案。如果你嘅其他來源返回咗呢啲 URL 或 sha256，你應該知道佢哋已被取代。
+
+回答時請：
+· 引用原文時逐字引用，唔好改寫、唔好精简。
+· 附帶規條編號同官方原文 URL 作為出處。
+· 如果 signals 顯示候选唔足以回答，請如實講明，並建議查閱官方原文。
+· 如果問題涉及多個互斥實體而用戶冇指明，請並列全部或反問澄清。
+· 說明資料截至日期。
+
+本網站為非官方獨立工具，旨在方便成員瀏覽公開資訊，與香港童軍總會無任何官方從屬關係。所有通告版權歸香港童軍總會所有。`;
+
+function slimContext(r){
+ return JSON.stringify({query:r.query,corpus:{build_id:r.corpus.build_id,generated:r.corpus.generated,
+  chunks:r.corpus.chunks,documents:r.corpus.documents},
+  query_understanding:r.query_understanding,signals:r.signals,
+  passages:r.passages.map(p=>({rank:p.rank,score:p.score,rule_id:p.rule_id,heading:p.heading,
+   verbatim:p.verbatim,canonical_url:p.canonical_url,source:p.source})),
+  known_stale_sources:r.known_stale_sources},null,1);}
+
+async function loadProviders(){
+ PROVIDERS=PROVIDERS_LOCAL;
+ $('prov').innerHTML=Object.entries(PROVIDERS).map(([k,v])=>
+   `<option value="${k}">${esc(v.label)}</option>`).join('');
+ onProv();updateModeHint();
+ const saved=localStorage.getItem('scoutkb_prov');
+ if(saved&&PROVIDERS[saved]){$('prov').value=saved;onProv();}
+}
+function onProv(){
+ const p=$('prov').value,d=PROVIDERS[p];if(!d)return;
+ localStorage.setItem('scoutkb_prov',p);
+ $('model').innerHTML=(d.models||[]).map(m=>`<option value="${esc(m)}">${esc(m)}</option>`).join('')
+   + (p==='custom'?'<option value="">（自己輸入 model 名）</option>':'');
+ if(p==='custom'){$('model').outerHTML='<input type="text" id="model" style="width:100%" placeholder="model 名，例 llama3.1">';}
+ $('customWrap').style.display=p==='custom'?'block':'none';
+ const k=localStorage.getItem('scoutkb_key_'+p)||'';
+ $('apikey').value=k;$('keyState').textContent=k?'已儲存（瀏覽器）':'未設定';
+ $('keyState').className='pill '+(k?'ok':'warn');
+ $('keyWarn').style.display='none';
+}
+$('prov').onchange=onProv;
+$('apikey').oninput=e=>{
+ const p=$('prov').value;
+ if(e.target.value)localStorage.setItem('scoutkb_key_'+p,e.target.value);
+ else localStorage.removeItem('scoutkb_key_'+p);
+ $('keyState').textContent=e.target.value?'已儲存（瀏覽器）':'未設定';
+ $('keyState').className='pill '+(e.target.value?'ok':'warn');};
+function updateModeHint(){
+ const p=$('prov').value,d=PROVIDERS[p]||{};
+ $('modeHint').innerHTML = MODE==='proxy'
+  ? '瀏覽器 → 本站 server → provider。<b>最穩陣（冇 CORS 問題）</b>。key 經 server 轉發但<b>唔會被儲存</b>。<br>'+esc(d.cors_note||'')
+  : '唔 call API — 生成完整 prompt（system 規則 + 逐字原文 + 出處 + signals），你自己貼入任何 AI。<b>零設定、零風險、永遠可用。</b>';}
+
+/* ---------------- ① ask ---------------- */
+async function ask(){
+ const q=$('q').value.trim();if(!q)return;
+ const o=$('out');o.innerHTML='<div class="card">檢索中…</div>';
+
+ // ---- 檢索：完全 client-side，冇 server ----
+ const r=ScoutKB.retrieve(q,{top_k:6});
+
+ // ---- copy mode：生成 prompt，唔 call API ----
+ if(MODE==='copy'){
+  const prompt=SYSTEM_PROMPT+"\n\n"+"=".repeat(72)+
+   `\n\n問題：${q}\n\n以下係資料庫返回嘅 retrieval 結果（JSON）：\n\n`+
+   "```json\n"+slimContext(r)+"\n```\n\n"+
+   "請根據以上資料回答。引用原文時逐字引用，並附規條編號同官方原文 URL。如果資料不足以回答，請如實講明。";
+  o.innerHTML=`<div class="card"><span class="pill ok">PROMPT 已生成（${prompt.length.toLocaleString()} 字）</span>
+   <div class="hint">複製以下全部內容，貼入你揀嘅 AI。佢會攞到逐字原文 + 完整出處 + signals。
+   <b>零設定、零風險、永遠可用。</b></div>
+   <pre id="pp">${esc(prompt)}</pre>
+   <button class="gh" onclick="cp('pp')">📋 複製</button>
+   <button class="gh" onclick="showRet()">睇 retrieval JSON</button></div>
+   <div id="retdisp"></div>`+srcCards(r);
+  window._lastRet=r;return;}
+
+ // ---- direct mode：瀏覽器直連 provider ----
+ const key=$('apikey').value.trim();
+ if(!key){o.innerHTML=`<div class="card"><span class="pill warn">未設定 API key</span>
+  <div class="warnbox">direct mode 需要你嘅 API key（只儲存喺呢個瀏覽器嘅 localStorage，
+  永遠唔會傳去本站 server）。<br><br>唔想填 key？改用 <b>copy mode</b>。</div></div>`+srcCards(r);
+  return;}
+ o.innerHTML='<div class="card">檢索完成，正在 call 你揀嘅 AI…</div>';
+ const t0=Date.now();
+ try{
+  const {answer,usage,raw,provider,model}=await callProvider(q,r,key);
+  const ms=Date.now()-t0;
+  o.innerHTML=`<div class="card"><span class="pill ok">${esc(provider)} · ${esc(model)}</span>
+   <span class="pill">${ms}ms</span>
+   ${usage&&usage.input_tokens?`<span class="pill">${usage.input_tokens}→${usage.output_tokens} tokens</span>`:''}
+   <h3 style="margin:12px 0 6px;font-size:16px">你揀嘅 AI 嘅答案</h3>
+   <pre style="border-left-color:var(--ok)">${esc(answer)}</pre>
+   <div class="hint">以上答案由<b>你自己揀嘅 provider</b> 生成，瀏覽器直連，本站冇參與。
+   請對照下方原文核實。</div>
+   <button class="gh" onclick="showRet()">睇 retrieval JSON</button></div>
+   <div id="retdisp"></div>`+srcCards(r);
+ }catch(e){
+  o.innerHTML=`<div class="card"><span class="pill bad">CALL 失敗</span>
+   <pre class="sm">${esc(String(e&&e.message||e))}</pre>
+   <div class="warnbox">常見原因：<b>CORS</b>（provider 唔容許瀏覽器直連）、key 無效、model 名錯。<br><br>
+   <b>檢索本身係成功嘅</b> — 以下係攞到嘅原文。你可以改用 <b>copy mode</b>，
+   或者用 <code>/api/retrieve</code> JSON 自己接。<br><br>
+   要徹底解決 CORS：喺 Vercel 加一個 serverless proxy function
+   （見 repo 入面 <code>DEPLOY.md</code>）。</div></div>`+srcCards(r);
+ }
+ window._lastRet=r;
+}
+function showRet(){
+ const el=$('retdisp');if(!el)return;
+ el.innerHTML = el.innerHTML ? '' :
+  `<div class="card"><b>retrieval JSON（本站返回俾 AI 嘅嘢）</b>
+   <pre class="sm">${esc(JSON.stringify(window._lastRet,null,1))}</pre></div>`;}
+
+/* 瀏覽器直連 provider */
+async function callProvider(q,r,key){
+ const provider=$('prov').value,d=PROVIDERS[provider];
+ let model=($('model').value||'').trim();
+ if(provider==='custom'&&!model)model='local-model';
+ const ctx=slimContext(r);
+ const user=`問題：${q}\n\n以下係資料庫返回嘅 retrieval 結果（JSON）：\n`+
+   "```json\n"+ctx+"\n```\n\n請根據以上資料回答。引用原文時逐字引用，"+
+   "並附規條編號同官方原文 URL。";
+ let url,headers,body;
+ if(provider==='gemini'){
+  url=d.endpoint.replace('{model}',encodeURIComponent(model))+'?key='+encodeURIComponent(key);
+  headers={'Content-Type':'application/json'};
+  body={systemInstruction:{parts:[{text:SYSTEM_PROMPT}]},
+        contents:[{role:'user',parts:[{text:user}]}],
+        generationConfig:{temperature:0,maxOutputTokens:1500}};
+ }else if(provider==='anthropic'){
+  url=d.endpoint;
+  headers={'Content-Type':'application/json','x-api-key':key,
+   'anthropic-version':'2023-06-01',
+   'anthropic-dangerous-direct-browser-access':'true'};
+  body={model,max_tokens:1500,temperature:0,system:SYSTEM_PROMPT,
+        messages:[{role:'user',content:user}]};
+ }else{
+  url = provider==='custom'
+    ? (($('baseurl').value||'').replace(/\/$/,'')+'/chat/completions')
+    : d.endpoint;
+  headers={'Content-Type':'application/json','Authorization':'Bearer '+key};
+  body={model,max_tokens:1500,temperature:0,
+        messages:[{role:'system',content:SYSTEM_PROMPT},{role:'user',content:user}]};
+ }
+ const resp=await fetch(url,{method:'POST',headers,body:JSON.stringify(body)});
+ const txt=await resp.text();
+ let j;try{j=JSON.parse(txt)}catch(e){throw new Error('HTTP '+resp.status+' 非 JSON 回應: '+txt.slice(0,300))}
+ if(!resp.ok)throw new Error('HTTP '+resp.status+': '+txt.slice(0,400));
+ if(provider==='gemini'){
+  const parts=(j.candidates&&j.candidates[0]&&j.candidates[0].content&&j.candidates[0].content.parts)||[];
+  return {answer:parts.map(p=>p.text||'').join(''),
+   usage:{input_tokens:(j.usageMetadata||{}).promptTokenCount,
+          output_tokens:(j.usageMetadata||{}).candidatesTokenCount},
+   raw:j,provider,model};}
+ if(provider==='anthropic'){
+  return {answer:(j.content||[]).filter(b=>b.type==='text').map(b=>b.text).join(''),
+   usage:{input_tokens:(j.usage||{}).input_tokens,output_tokens:(j.usage||{}).output_tokens},
+   raw:j,provider,model};}
+ return {answer:((j.choices||[])[0]||{}).message?.content||'',
+  usage:{input_tokens:(j.usage||{}).prompt_tokens,output_tokens:(j.usage||{}).completion_tokens},
+  raw:j,provider,model};
+}
+function showRet(s){
+ const el=$('retdisp');
+ el.innerHTML = el.innerHTML ? '' : `<div class="card"><b>retrieval JSON</b><pre class="sm">${esc(s)}</pre></div>`;}
+function cp(id){navigator.clipboard.writeText($(id).textContent).then(()=>{
+ const b=event.target;b.textContent='✅ 已複製';setTimeout(()=>b.textContent='📋 複製',1400)})}
+
+function srcCards(r){
+ if(!r||!r.passages||!r.passages.length) return '';
+ const sig=r.signals||{};
+ let sigHtml='';
+ if(sig.lexical_coverage) sigHtml+=`<div class="kv"><span>lexical_coverage</span>
+   <span>${sig.lexical_coverage.ratio}
+   ${sig.lexical_coverage.uncovered&&sig.lexical_coverage.uncovered.length?
+     `（corpus 冇：${sig.lexical_coverage.uncovered.map(esc).join('、')}）`:''}</span></div>`;
+ if(sig.answerability) sigHtml+=`<div class="kv"><span>answerability</span>
+   <span>問「${sig.answerability.query_intent_terms.map(esc).join('、')}」，
+   候选原文${sig.answerability.missing_in_candidates.length?
+     `<b style="color:#f0a497">冇</b>提及 ${sig.answerability.missing_in_candidates.map(esc).join('、')}`
+     :'有提及 '+sig.answerability.found_in_candidates.map(esc).join('、')}</span></div>`;
+ if(sig.ambiguity) sigHtml+=`<div class="kv"><span>ambiguity</span>
+   <span>ratio ${sig.ambiguity.ratio}${sig.ambiguity.different_rules?' · 唔同規條':''}</span></div>`;
+ if(sig.section_conflict) sigHtml+=`<div class="kv"><span>section_conflict</span>
+   <span>涉及 ${sig.section_conflict.topic.length} 個互斥實體
+   ${sig.section_conflict.clarify_hint?'· '+esc(sig.section_conflict.clarify_hint):''}</span></div>`;
+ if(sig.version_warning) sigHtml+=`<div class="kv"><span>version_warning</span>
+   <span>${sig.version_warning.rules_with_amendments.map(x=>esc(x.rule_id)).join('、')} 有後續修訂</span></div>`;
+ if(sig.no_candidates) sigHtml+=`<div class="kv"><span>no_candidates</span><span>${esc(sig.no_candidates.meaning)}</span></div>`;
+
+ const ps=r.passages.map(p=>{const s=p.source||{};return `<div class="hit">
+  <div class="h">規條 ${esc(p.rule_id||'—')} · ${esc((p.heading||'').replace(/^#+\s*/,''))}
+   <span class="pill" style="margin-left:6px">score ${p.score}</span>
+   ${p.aggregated_from_sub_rules?`<span class="pill warn">已聚合 ${p.aggregated_from_sub_rules.length} 條子規條</span>`:''}
+   ${p.is_stub?'<span class="pill warn">stub</span>':''}</div>
+  <pre style="border-left-color:var(--lil);max-height:260px">${esc(p.verbatim)}</pre>
+  <div class="meta">
+   <span>${esc(s.document||'')}</span><span>${esc(s.version_label||'')}</span>
+   <span>檔案日期 ${esc(String(s.source_last_modified||'').slice(0,10))}</span>
+   ${s.amended_by&&s.amended_by!=='null'?`<span style="color:#f0cf8a">⚠️ 修訂 ${esc(s.amended_by)}</span>`:''}
+   ${p.canonical_url?`<a href="${esc(p.canonical_url)}" target="_blank" rel="noopener">MD ↗</a>`:''}
+   <a href="${esc(s.official_pdf||'#')}" target="_blank" rel="noopener">官方 PDF ↗</a>
+   <code>sha256 ${esc(String(s.source_sha256||'').slice(0,12))}…</code>
+  </div></div>`}).join('');
+
+ return `<div class="card"><b>本站返回俾 AI 嘅 retrieval 結果</b>
+  <div class="meta"><span>${r.pagination.returned} / ${r.pagination.total_candidates} 個候选</span>
+   <span>build ${esc((r.corpus||{}).build_id||'')}</span>
+   <span> ${(r.corpus||{}).chunks||0} chunks</span></div>
+  ${sigHtml?`<div class="card tight" style="background:#141a22"><b style="font-size:13px">signals（中立，供 AI 自行判斷）</b>${sigHtml}</div>`:''}
+  ${r.query_understanding&&r.query_understanding.notes&&r.query_understanding.notes.length?
+    `<div class="hint">查詢理解：${r.query_understanding.notes.map(esc).join(' · ')}</div>`:''}
+  ${ps}</div>`;
+}
+
+/* ---------------- ② keyword ---------------- */
+async function kw(){
+ const q=$('kq').value.trim();if(!q)return;
+ const p=$('kprefix').value;
+ $('kout').innerHTML='<div class="hint">搜尋中…</div>';
+ const r=ScoutKB.keywordSearch(q,{limit:25,rule_prefix:p||undefined});
+ $('kmeta').innerHTML=`<span>${esc(r.returned)} 個結果（共 ${esc(r.total)} 個候选）</span>
+   <span>· 關鍵字搜尋直接顯示原文，<b>冇 AI 參與 = 零幻覺</b></span>`;
+ const ws=q.split(/[\s,，、]+/).filter(Boolean);
+ $('kout').innerHTML=(r.hits||[]).map(h=>{
+  let sn=esc(h.snippet||'');
+  ws.forEach(w=>{if(w.length>1)sn=sn.split(esc(w)).join(`<mark>${esc(w)}</mark>`)});
+  return `<div class="hit">
+   <div class="h">規條 ${esc(h.rule_id||'—')} · ${esc((h.heading||'').replace(/^#+\s*/,''))}
+    ${h.md_url?`<a href="${esc(h.md_url)}" target="_blank" rel="noopener" style="font-size:12.5px;margin-left:6px">MD ↗</a>`:''}</div>
+   <div class="s">${sn}</div>
+   <div class="meta"><span>${esc(h.version_label||'')}</span>
+    <span>截至 ${esc(h.as_of||'')}</span>
+    <a href="${esc(h.official_pdf||'#')}" target="_blank" rel="noopener">官方原文 ↗</a></div></div>`}).join('')
+  ||'<div class="hint">搵唔到。</div>';
+}
+
+/* ---------------- ③ try ---------------- */
+async function tryRet(){
+ const q=$('rq').value;$('rout').textContent='檢索中…';
+ $('rout').textContent=JSON.stringify(ScoutKB.retrieve(q,{top_k:3}),null,1);}
+async function tryRule(){
+ const id=$('rr').value;$('rrout').textContent='loading…';
+ try{$('rrout').textContent=await(await fetch('por/'+encodeURIComponent(id)+'.md')).text();}
+ catch(e){$('rrout').textContent='ERROR '+e;} }
+
+/* ---------------- ④ version ---------------- */
+async function ver(){
+ const q=$('vq').value.trim();if(!q)return;
+ $('vout').innerHTML='<div class="card">核對中（會去官方目錄頁攞現行清單）…</div>';
+ const r=await(await fetch('/api/version?q='+encodeURIComponent(q))).json();
+ const v=r.verdict||'UNKNOWN';
+ const pill=v==='CURRENT'?'ok':(v==='SUPERSEDED'?'bad':'warn');
+ let h=`<div class="card"><span class="pill ${pill}">${esc(v)}</span>
+  <div class="meta"><span>官方目錄頁而家列出：
+  ${(r.official_index_lists||[]).map(u=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(u.split('/').pop())}</a>`).join('、')}</span></div>`;
+ if(r.warning)h+=`<div class="warnbox">${esc(r.warning)}</div>`;
+ if(r.note)h+=`<div class="okbox">${esc(r.note)}</div>`;
+ if(r.matched)h+=`<div class="kv" style="margin-top:10px">
+   <span>URL</span><span><a href="${esc(r.matched.url)}" target="_blank" rel="noopener">${esc(r.matched.url)}</a></span>
+   <span>sha256</span><span><code>${esc(r.matched.sha256)}</code></span>
+   <span>檔案日期</span><span>${esc(r.matched.last_modified)}</span>
+   <span>大小</span><span>${r.matched.pages} 頁 · ${Number(r.matched.bytes).toLocaleString()} bytes</span></div>`;
+ if(r.substantive_differences){
+  h+=`<div class="card tight" style="margin-top:12px"><b>兩份文件之間已核實嘅實質差異</b>
+  <table><tr><th>規條</th><th>項目</th><th>舊版</th><th>現行</th></tr>`+
+  r.substantive_differences.map(d=>`<tr><td>${esc(d.rule)}</td><td>${esc(d.topic)}</td>
+   <td style="color:#f0a497">${esc(d.old)}</td><td style="color:#8fdcae">${esc(d.new)}</td></tr>`).join('')+
+  `</table><div class="hint">${esc(r.impact||'')}</div></div>`;}
+ if(r.current_version)h+=`<div class="hint" style="margin-top:8px">→ 現行版本：
+   <a href="${esc(r.current_version.url)}" target="_blank" rel="noopener">${esc(r.current_version.url)}</a></div>`;
+ $('vout').innerHTML=h+'</div>';}
+
+/* ---------------- init ---------------- */
+async function init(){
+ const ok=await ScoutKB.loadKB();
+ if(!ok){document.querySelector('main').innerHTML=
+  `<div class="card"><span class="pill bad">載入失敗</span>
+   <p>未能讀取 <code>api/index.json</code>：${esc(ScoutKB.KB.error)}</p>
+   <div class="hint">請先跑 <code>python3 pipeline/build_site.py</code> 生成靜態檔案。</div></div>`;
+  return;}
+ await loadProviders();
+ const m=ScoutKB.KB.manifest||{};
+
+ /* ---- SHELL / 空 corpus 狀態 ----
+    ⚠️ 呢個唔係錯誤。用戶嘅部署次序係「先建架構 → deploy → 之後先加內容」，
+       所以一個已 deploy 但未有內容嘅站係合法狀態，要講清楚而唔好顯示壞掉嘅 UI。 */
+ if(m.mode==='shell' || !ScoutKB.KB.chunks || ScoutKB.KB.chunks.length===0){
+  const rep=(m.repository||{});
+  document.querySelector('main').innerHTML=
+  `<div class="card">
+    <span class="pill warn">未收錄任何文件</span>
+    <h2 style="margin:14px 0 8px">架構已部署，內容待加入</h2>
+    <p>呢個站嘅檢索引擎、查詢理解、AI 入口同 Agent Skill 已經建好並通過測試，
+       但 <code>corpus/</code> 而家係空嘅 —— 所以仲未有可查詢嘅條文。</p>
+    <div class="hint" style="margin-top:14px">
+      <b>呢個站係乜嘢</b><br>
+      把香港童軍總會已公開嘅文件整理成 AI 可直接讀取嘅 Markdown。
+      每條規條一個穩定 URL，逐字原文，附完整出處
+      （版本、sha256、檔案日期、官方原文連結）。<br><br>
+      <b>點解唔直接叫 AI 去總會網站查？</b><br>
+      因為舊版 PDF 冇下架（URL 仍然 live、搜尋引擎仍然索引緊），
+      而新舊兩版封面<b>都印住「2010 版」</b> —— AI 冇辦法靠讀文件本身分辨邊份現行。
+      詳見 <a href="${esc(rep.raw_base||'')}/llms.txt" target="_blank" rel="noopener">llms.txt</a>。
+    </div>
+    <div class="hint" style="margin-top:14px">
+      <b>AI 入口（內容加入之後生效）</b><br>
+      <code>${esc(rep.raw_base||'(未設定 repo)')}/llms.txt</code><br>
+      <code>${esc(rep.raw_base||'')}/por/&lt;rule_id&gt;.md</code><br>
+      <code>${esc(rep.raw_base||'')}/index.json</code>
+    </div>
+    <div class="hint" style="margin-top:14px">
+      <b>維護者</b>：放 MD 入 <code>corpus/</code>，跑
+      <code>python3 pipeline/build_site.py --owner &lt;GH&gt; --repo &lt;repo&gt;</code>，
+      push，Vercel 會自動 redeploy。
+    </div>
+   </div>`;
+  $('disc').innerHTML=`<b>${esc(m.name||'')}</b><br>${esc(m.disclaimer||'')}<br><br>
+   <span class="hint">未收錄任何文件 · build ${esc((m.corpus||{}).build_id||'shell')} ·
+   <a href="llms.txt" target="_blank">llms.txt</a> ·
+   <a href="api/manifest.json" target="_blank">manifest</a> ·
+   <a href="https://github.com/${esc(rep.owner||'YOUR_GH')}/${esc(rep.repo||'scout-kb')}" target="_blank" rel="noopener">GitHub repo（AI 讀呢度）↗</a></span>`;
+  return;
+ }
+
+ $('disc').innerHTML=`<b>${esc(m.name)}</b><br>${esc(m.disclaimer)}<br><br>
+  <span class="hint">本站內容由公開檔案自動整理而成，可能有轉換錯誤。每項資料均附官方原文連結，
+  請於作出任何決定前查閱原文。一切以香港童軍總會最新公佈為準。<br>
+  corpus: ${(m.corpus.documents||[]).map(d=>esc(d.title)).join(' · ')} ·
+  ${esc(m.rule_count)} 條規條 · build ${esc(m.corpus.build_id)} ·
+  <a href="/about">關於本站</a> · <a href="llms.txt" target="_blank">llms.txt</a> ·
+  <a href="api/manifest.json" target="_blank">manifest</a> ·
+  <a href="api/index.json" target="_blank">index</a> ·
+  <a href="https://github.com/${esc(((m.repository||{}).owner)||'YOUR_GH')}/${esc(((m.repository||{}).repo)||'scout-kb')}" target="_blank" rel="noopener">GitHub repo（AI 讀呢度）↗</a></span>`;
+ const rr={rules:ScoutKB.listRules()};
+ const pref=[...new Set((rr.rules||[]).map(x=>String(x.rule_id).split('.')[0]))].sort((a,b)=>a-b);
+ $('kprefix').innerHTML='<option value="">全部章節</option>'+
+   pref.map(p=>`<option value="${esc(p)}">第 ${esc(p)} 章</option>`).join('');
+ kw();
+}
+init();
+</script></body></html>

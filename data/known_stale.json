@@ -1,0 +1,44 @@
+[
+ {
+  "url": "https://www.scout.org.hk/uploads/tc/por/por_c_20220908_1.pdf",
+  "sha256": "3787fac7b4778ff5c5ed652a52b44bd71e996aa9f85d834f0c7f982c531895f2",
+  "last_modified": "2022-09-15T10:10:20Z",
+  "pages": 104,
+  "status": "superseded",
+  "still_live": true,
+  "note": "舊版 POR。URL 仍然可以開啟，搜尋引擎仍然索引緊，但已唔喺官方目錄頁嘅現行清單入面。",
+  "superseded_by": "https://www.scout.org.hk/uploads/tc/por/por_c_20260917.pdf",
+  "verified_differences": [
+   {
+    "rule": "2.3.3",
+    "topic": "小童軍團 年齡規限",
+    "stale": "足五歲起至足八歲止",
+    "current": "四歲至七歲"
+   },
+   {
+    "rule": "2.3.4",
+    "topic": "幼童軍團 年齡規限",
+    "stale": "足七歲半至足十二歲止",
+    "current": "六歲至十一歲"
+   },
+   {
+    "rule": "2.3.5",
+    "topic": "童軍團 年齡規限",
+    "stale": "足十一歲起至足十六歲止",
+    "current": "十一歲至十五歲"
+   },
+   {
+    "rule": "2.3.6",
+    "topic": "深資童軍團 年齡規限",
+    "stale": "足十五歲起至足二十一歲止",
+    "current": "十五歲至二十歲"
+   },
+   {
+    "rule": "2.3.7",
+    "topic": "樂行童軍團 年齡規限",
+    "stale": "足十八歲起至足二十六歲止",
+    "current": "十八歲至二十五歲"
+   }
+  ]
+ }
+]

@@ -1,0 +1,250 @@
+[
+ {
+  "id": "Q01",
+  "q": "樂行童軍團的年齡規限係幾多？",
+  "expect_rule": "2.3.7",
+  "expect_contains": [
+   "十八歲",
+   "二十五歲"
+  ],
+  "must_not_contain": [
+   "二十六歲"
+  ],
+  "note": "🔴 舊版(2022)寫「足二十六歲止」— 呢題係版本陷阱測試"
+ },
+ {
+  "id": "Q02",
+  "q": "深資童軍幾多歲要退？",
+  "expect_rule": "2.3.6",
+  "expect_contains": [
+   "十五歲",
+   "二十歲"
+  ],
+  "must_not_contain": [
+   "二十一歲"
+  ],
+  "note": "🔴 舊版寫「足二十一歲止」"
+ },
+ {
+  "id": "Q03",
+  "q": "童軍支部年齡規限",
+  "expect_contains": [],
+  "must_not_contain": [
+   "十六歲"
+  ],
+  "note": "🔴 版本陷阱 + generic。「童軍支部年齡規限」冇指明邊個支部 → 正確行為係返回全部 5 條 + section_conflict signal，而唔係淨係回 2.3.5。expect_rule_any 列出可接受嘅規條。",
+  "expect_rule_any": [
+   "2.3.3",
+   "2.3.4",
+   "2.3.5",
+   "2.3.6",
+   "2.3.7"
+  ]
+ },
+ {
+  "id": "Q04",
+  "q": "幼童軍團年齡",
+  "expect_rule": "2.3.4",
+  "expect_contains": [
+   "六歲",
+   "十一歲"
+  ],
+  "must_not_contain": [
+   "七歲半",
+   "十二歲"
+  ],
+  "note": "🔴 舊版寫「足七歲半至足十二歲止」"
+ },
+ {
+  "id": "Q05",
+  "q": "小童軍團嘅年齡規限同人數上限",
+  "expect_rule": "2.3.3",
+  "expect_contains": [
+   "四歲",
+   "七歲",
+   "三十六"
+  ],
+  "must_not_contain": [
+   "五歲",
+   "八歲"
+  ],
+  "note": "🔴 舊版寫「足五歲起至足八歲止」"
+ },
+ {
+  "id": "Q06",
+  "q": "一個童軍團最少要幾多名團員？",
+  "expect_rule": "2.3.5",
+  "expect_contains": [
+   "十二名"
+  ],
+  "must_not_contain": []
+ },
+ {
+  "id": "Q07",
+  "q": "樂行童軍團最少要幾多個領袖？",
+  "expect_rule": "2.3.7",
+  "expect_contains": [
+   "兩名領袖",
+   "領袖委任書"
+  ],
+  "must_not_contain": []
+ },
+ {
+  "id": "Q08",
+  "q": "幼童軍團最多可以有小隊？",
+  "expect_rule": "2.3.4",
+  "expect_contains": [
+   "八個小隊"
+  ],
+  "must_not_contain": []
+ },
+ {
+  "id": "Q09",
+  "q": "童軍小隊有幾多人？",
+  "expect_rule": "2.3.5",
+  "expect_contains": [
+   "小隊長",
+   "副小隊長",
+   "七名隊員"
+  ],
+  "must_not_contain": []
+ },
+ {
+  "id": "Q10",
+  "q": "總會嘅銘言係乜？",
+  "expect_rule": "1.1.3",
+  "expect_contains": [
+   "準備"
+  ],
+  "must_not_contain": []
+ },
+ {
+  "id": "Q11",
+  "q": "童軍誓詞內容",
+  "expect_rule": "1.2",
+  "expect_contains": [
+   "誓詞"
+  ],
+  "must_not_contain": []
+ },
+ {
+  "id": "Q12",
+  "q": "旅務委員會",
+  "expect_rule": "2.10",
+  "expect_contains": [
+   "旅務委員會"
+  ],
+  "must_not_contain": []
+ },
+ {
+  "id": "Q13",
+  "q": "旅領袖會議係乜？",
+  "expect_rule": "2.9",
+  "expect_contains": [
+   "旅領袖會議"
+  ],
+  "must_not_contain": []
+ },
+ {
+  "id": "Q14",
+  "q": "童軍旅財務點樣管理？",
+  "expect_rule": "2.11",
+  "expect_contains": [
+   "財務"
+  ],
+  "must_not_contain": []
+ },
+ {
+  "id": "Q15",
+  "q": "童軍旅發生意外同保險點處理？",
+  "expect_rule": "2.12",
+  "expect_contains": [
+   "意外",
+   "保險"
+  ],
+  "must_not_contain": []
+ },
+ {
+  "id": "Q16",
+  "q": "旅內部有糾紛點算？",
+  "expect_rule": "2.13",
+  "expect_contains": [
+   "糾紛"
+  ],
+  "must_not_contain": []
+ },
+ {
+  "id": "Q17",
+  "q": "一個旅可以由邊啲支部組成？",
+  "expect_rule": "2.3.2",
+  "expect_contains": [
+   "小童軍團",
+   "幼童軍團",
+   "童軍團",
+   "深資童軍團",
+   "樂行童軍團"
+  ],
+  "must_not_contain": []
+ },
+ {
+  "id": "Q18",
+  "q": "童軍團長委任副團長",
+  "expect_contains": [
+   "副團長"
+  ],
+  "must_not_contain": [],
+  "note": "開放題：多条規條都合法講及副團長委任（2.6 父規條已聚合 2.6.1–2.6.12，2.6.7 童軍副團長，2.3.5 童軍團）。重點係**唔好亂噏** —— top-1 原文必須真係提到「副團長」。",
+  "expect_rule_any": [
+   "2.6",
+   "2.6.7",
+   "2.6.8",
+   "2.6.9",
+   "2.6.10",
+   "2.6.11",
+   "2.3.5"
+  ]
+ },
+ {
+  "id": "Q19",
+  "q": "區總監可唔可以解散一個團？",
+  "expect_rule": "2.3.7",
+  "expect_contains": [
+   "連續兩年",
+   "地域總監批准",
+   "解散"
+  ],
+  "must_not_contain": [],
+  "note": "答案散落喺多條規條，考跨條檢索"
+ },
+ {
+  "id": "Q20",
+  "q": "幼童軍每年要有幾多團員考獲進度性獎章？",
+  "expect_rule": "2.3.4",
+  "expect_contains": [
+   "四份一",
+   "進度性獎章"
+  ],
+  "must_not_contain": []
+ },
+ {
+  "id": "N01",
+  "q": "香港明日天氣點？",
+  "expect_rule": null,
+  "expect_result": "no_match",
+  "note": "🛡️ 領域外問題 — 必須回 no_match，唔好亂答"
+ },
+ {
+  "id": "N02",
+  "q": "童軍旅團長月薪幾多？",
+  "expect_rule": null,
+  "expect_result": "no_match",
+  "note": "🛡️ POR 冇薪酬資料 — 必須承認搵唔到"
+ },
+ {
+  "id": "N03",
+  "q": "世界童軍總部喺邊度？",
+  "expect_rule": null,
+  "expect_result": "no_match",
+  "note": "🛡️ 唔喺 POR 範圍"
+ }
+]

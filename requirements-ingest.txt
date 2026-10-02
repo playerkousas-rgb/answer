@@ -1,0 +1,10 @@
+# ============================================================================
+# 只有當你要**由 PDF 轉換新文件入 corpus/** 先至需要呢啲。
+# build / deploy / skill 完全唔需要。
+#
+#   pip install -r requirements.txt -r requirements-ingest.txt
+# ============================================================================
+pymupdf==1.26.5              # span-level 抽取（font size 過濾腳註）— 核心
+markitdown[pdf]==0.1.8       # 對比用 baseline；主路徑係 pymupdf span-level
+beautifulsoup4==4.14.2       # 複雜 listing 頁解析
+flask==3.1.3                 # 只有跑 app/server.py（可選嘅 server 模式）先至需要

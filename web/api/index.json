@@ -1,0 +1,1 @@
+{"build":{"generated":"2026-10-02T07:04:06+00:00","build_id":"shell","tokenizer":"cjk-bigram+trigram (stdlib, 同 app.js / search_kb.py 一致)","params":{"k1":1.5,"b":0.75,"N":0,"avgdl":0,"vocab":0},"aggregation":{},"empty":true,"note":"corpus/ 係空嘅 — 呢個係 skeleton build。放 MD 入 corpus/ 再跑 build_site.py 就會有內容。"},"documents":[],"chunks":[],"postings":{},"idf":{},"routes":[]}

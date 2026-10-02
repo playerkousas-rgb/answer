@@ -1,0 +1,22 @@
+# 香港童軍總會公開文件資料庫（非官方）
+
+> ⚠️ **呢個資料庫而家未收錄任何文件。**
+> 佢係一個已部署好嘅 skeleton — 架構完成，內容待加入。
+
+本網站為非官方獨立工具，旨在方便成員瀏覽公開資訊，與香港童軍總會無任何官方從屬關係。所有通告版權歸香港童軍總會所有。
+
+## 結構（內容加入之後會生效）
+
+- 概覽：`https://raw.githubusercontent.com/YOUR_GH/scout-kb/main/llms.txt`（呢個檔案）
+- 全 corpus 單一檔案：`https://raw.githubusercontent.com/YOUR_GH/scout-kb/main/llms-full.txt`
+- machine-readable 索引：`https://raw.githubusercontent.com/YOUR_GH/scout-kb/main/index.json`
+- 每條規條：`https://raw.githubusercontent.com/YOUR_GH/scout-kb/main/por/<rule_id>.md`
+- 成份文件：`https://raw.githubusercontent.com/YOUR_GH/scout-kb/main/md/<doc_id>.md`
+
+每個 MD 檔都會有 frontmatter，包含完整出處：
+`rule_id` · `document` · `version_label` · `source_sha256` ·
+`source_last_modified` · `official_pdf` · `official_landing` · `as_of` · `status`
+
+## 文件
+
+（未有）

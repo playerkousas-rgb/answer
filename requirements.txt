@@ -1,0 +1,9 @@
+# ============================================================================
+# build / 前端 / skill 用 —— GitHub Actions 同 Vercel build 只需要呢啲。
+#
+# ⭐ 而家 build 路徑**完全零 third-party 依賴**（tokenizer 已改用 stdlib bigram，
+#    唔再用 jieba）。呢個檔案保留係為咗 PyYAML（pipeline/sources.yml 用）。
+#
+# ⚠️ pinned：版本浮動會產生假 diff，令你漸漸唔再睇 PR。
+# ============================================================================
+PyYAML==6.0.3        # pipeline/sources.yml（只有跑 ingest pipeline 先至需要）
